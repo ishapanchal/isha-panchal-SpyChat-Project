@@ -1,51 +1,50 @@
 import sys
 import default
+import spy_status
+import spy_friend
+      
+def start_chat(spy_name, spy_age, spy_rating):
+    current_status_message = None
+    show_menu = True
 
-print "Welcome to spychat"
+    while show_menu == True:
+        menu_choice = raw_input("1. Add a status update\n2. Add Friend\n3. Exit Application")
+        if menu_choice == '1':
+            #update the status
+            print "You have chosen to add a status"
+            current_status_message = spy_status.add_status(current_status_message)
+        elif menu_choice == '2':
+            print "You have chosen to add a friend"
+            spy_friend.add_friend()
+        elif menu_choice == '3':
+            show_menu = False 
 
-choice=raw_input("Enter 1 if you want default settings ")
-if choice == '1': #verifying choice
+print "Welcome to spychat Application"
 
-    spy_name = default.spy_name
-    spy_salutation = default.spy_salutation
-    spy_age = default.spy_age
-    spy_rating = default.spy_rating
-    print "hello" +spy_salutation + spy_name
-    print "your age is "+ spy_age
-    print "your rating is "+ spy_rating
+choice=raw_input("Do you want to proceed with default settings(y/n)?: ")
+
+spy = {}
+if choice.upper() == 'Y': #verifying choice
+    spy['name'] = default.spy['name']
+    spy['age'] = default.spy['age']
+    spy['rating'] = default.spy['rating']
+    spy['is_online'] = default.spy['is_online']
     
 else: #taking input from the user
-    spy_name = raw_input ("Enter your name ") 
-    if spy_name.isalpha() == False: #checking whether name entered is valid or not
-       print "Please Enter a valid name. "
-       print "Name should be only in alphabets (A-Z or a-z)"
-       sys.exit(0) #if name is not valid exit
+    spy['name'] = raw_input("Enter your name: ")
+    spy['age'] = int(raw_input("What is your age?: "))
+    spy['rating'] = float(raw_input("What is your rating?: "))
+    spy['is_online'] = True
+       
+#Validation of name and age
+if spy['name'].isalpha() == False:
+    print "Invalid name"
+    sys.exit(0)
 
-    spy_salutation = raw_input("Enter your Salutation (Mr. , Ms. or Mrs.):")
-    
-    spy_age = raw_input("Enter your age ")
-    if type(spy_age)   == int: #validating the age of the spy
-        if int(spy_age) <= 12: 
-    	   print "you are too young to become a spy"
-    	   sys.exit(0)
-        if int(spy_age) >= 50:
-            print "you are too old to be a spy"
-            sys.exit(0)
-    spy_rating = raw_input("Enter your rating (A, B or C) ")  
-    print "hello " + spy_salutation + spy_name #printing welcome message
-    print "your age is "+ spy_age
-    print "your rating is "+ spy_rating
+if spy['age'] <= 12 or spy['age'] >= 50:
+    print "Invalid age"
+    sys.exit(0)
 
-    if spy_rating == 'A':    #compairing ratings
-        print "you are a 3 star spy"
-    elif spy_rating =='B':
-        print "you are a 2 star spy"
-    elif spy_rating == 'C':
-        print "you are a 1 star spy"     
-    else:
-    	print "you have entered incorrect rating"
-    	sys.exit(0)
-    #print ("hello" + spy_salutation + spy_name)
-    #print ("your age is " + spy_age)
-    #print ("your rating is " + spy_rating)	
-    
+print "Hello" + spy['name'] + ". "  
+start_chat(spy['name'], spy['age'], spy['rating'])
+
