@@ -1,5 +1,11 @@
+import sys
+import spy_friend
+from spy_details import Spy, ChatMessage
+
 STATUS_MESSAGE = []
 def add_status(current_status_message):
+    
+    #Print the current status message
     if current_status_message == None:
         print "You do not have any current status message" 
     else:
@@ -21,4 +27,4 @@ def add_status(current_status_message):
         if len(STATUS_MESSAGE) > message_selection:
             updated_status_message = STATUS_MESSAGE[message_selection-1] 
 
-    return updated_status_message
+            return updated_status_message
