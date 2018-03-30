@@ -2,6 +2,8 @@ import sys
 from steganography.steganography import Steganography
 from datetime import datetime
 from spy_details import Spy, ChatMessage
+import csv
+#from cryptography.fernet import Fernet
 
 friends = []
 #Default list of Friends of our spy
@@ -66,6 +68,13 @@ def send_message():
       friends[friend_choice].chats.append(new_chat)
       print "Your secret message has been sent to %s" %friends[friend_choice].name
 
+      # put this message somewhere safe!
+      #key = Fernet.generate_key()
+      #cipher_suite = Fernet(key)
+      #cipher_text = cipher_suite.encrypt(b"A really secret message. Not for prying eyes.")
+      #print "Your secret message has been sent to %s" %friends[friend_choice].name
+
+
 def read_message():
         print "Choose the friend whose message you want to read"
         sender = select_friend()
@@ -85,3 +94,32 @@ def read_message():
         print "Your secret message has beem saved\n" 
         print "Your message is '%s'" %secret_text
     
+        #plain_text = cipher_suite.decrypt(cipher_text)
+        #print "Your secret message has beem saved\n" 
+        #print "Your message is '%s'" %cipher_text
+
+def load_friend():
+  read_object = open("friends.csv", 'r')
+  reader  = csv.reader(read_object)
+  for row in reader:
+    name = row[0]
+    salutation = row[1]
+    age = int(row[2])
+    rating = float(row[3])
+    is_online = bool(row[4])
+    new_friend = Spy(name, salutation, age, rating)
+    friends.append(new_friend)
+
+  read_object.close()
+
+def save_friends():
+  write_object = open('friends.csv', 'w')
+  writer = csv.writer(write_object)
+  for i in range(len(friends)):
+    name = friends[i].name
+    salutation = friends[i].salutation
+    age = friends[i].age
+    rating = friends[i].rating
+    is_online = friends[i].is_online
+    writer.writerow([name,salutation,age,rating,is_online])
+  write_object.close()

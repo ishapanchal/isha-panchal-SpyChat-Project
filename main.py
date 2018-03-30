@@ -3,14 +3,12 @@ import spy_status
 import spy_friend
 
 #Import the default spy object
-from spy_details import spy
+from spy_details import Spy
 from spy_details import Spy, ChatMessage
 
 print "Welcome to spychat Application"
 
 profile_choice=raw_input("Do you want to proceed with default settings(y/n)?: ")
-
-
 if profile_choice.upper() == 'Y': #verifying choice
     spy = Spy("Mick", "Mr.", 25, 5.0)
 
@@ -38,9 +36,8 @@ print "We have successfully created your account"
 
 
 def start_chat():
-    current_status_message = None
     show_menu = True
-
+    spy_friend.load_friend()
     while show_menu == True:
         menu_choice = raw_input("1. Add a status update\n2. Add Friend\n3. Send message to a friend\n4. Read secret messages of a friend\n 5. Exit Application")
         if menu_choice == '1':
@@ -58,6 +55,7 @@ def start_chat():
             spy_friend.read_message()
         elif menu_choice == '5':
             print "\nYou have chosen to close the Application"
+            spy_friend.save_friends()
             show_menu = False
         else:
             print "\nInCorrect Choice" 
