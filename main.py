@@ -1,6 +1,7 @@
 import sys
 import spy_status
 import spy_friend
+import csv
 
 #Import the default spy object
 from spy_details import Spy
@@ -37,13 +38,12 @@ print "We have successfully created your account"
 
 def start_chat():
     show_menu = True
-    spy_friend.load_friend()
     while show_menu == True:
         menu_choice = raw_input("1. Add a status update\n2. Add Friend\n3. Send message to a friend\n4. Read secret messages of a friend\n 5. Exit Application")
         if menu_choice == '1':
             #update the status
             print "\nYou have chosen to add a status"
-            current_status_message = spy_status.add_status(current_status_message)
+            spy.current_status_message = spy_status.add_status(spy.current_status_message)
         elif menu_choice == '2':
             print "\nYou have chosen to add a friend"
             spy_friend.add_friend()
@@ -60,4 +60,6 @@ def start_chat():
         else:
             print "\nInCorrect Choice" 
 
+spy_friend.load_friend()
 start_chat()
+spy_friend.save_friends()
