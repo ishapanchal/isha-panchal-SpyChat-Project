@@ -15,7 +15,7 @@ def add_status(current_status_message):
     if current_status_message == None:
         print "You do not have any current status message" 
     else:
-        print "Your current status message is %s \n" % spy.current_status_message
+        print "Your current status message is %s \n" % current_status_message
 
     update_choice = raw_input("Do you want to select from older status(y/n)?: ")
     if update_choice.upper() == 'N':
@@ -30,27 +30,25 @@ def add_status(current_status_message):
             print(str(i+1) + " " + STATUS_MESSAGE[i])
 
         message_selection = int(raw_input("\n Choose from the older messages "))
-        if len(STATUS_MESSAGE) > message_selection:
+        if len(STATUS_MESSAGE) >= message_selection:
             updated_status_message = STATUS_MESSAGE[message_selection-1] 
 
             return updated_status_message
 
 def load_status():
-    read_status = open("spy_status.csv", 'r')
-    reader = csv.reader(read_status)
+    read_object = open("spy_status.csv", 'r')
+    reader = csv.reader(read_object)
     for row in reader:
-        message_selection = row[0]
-        STATUS_MESSAGE.append(message_selection)
-        print row
-    spy.current_status_message = STATUS_MESSAGE[-1]
-    read_status.close()    
-
+        STATUS_MESSAGE.append(row[0])
+    read_object.close()
+    if len(STATUS_MESSAGE) > 0:
+            return STATUS_MESSAGE[-1]
+    else:
+            return None            
 
 def save_status():
-    write_status = open("spy_status.csv", 'w')
-    writer = csv.writer(write_status)
+    write_object = open("spy_status.csv", 'w')
+    writer = csv.writer(write_object)
     for i in range(len(STATUS_MESSAGE)):
-        message_selection = STATUS_MESSAGE[i].message_selection
-        updated_status_message = new_status_message
-        writer.writerow([current_status_message])
-    write_status.close()
+        writer.writerow([STATUS_MESSAGE[i]])
+    write_object.close()

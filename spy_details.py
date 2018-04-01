@@ -1,5 +1,4 @@
 from datetime import datetime
-import spy_friend
 
 class Spy:
 	def __init__(self, name, salutation, age, rating):

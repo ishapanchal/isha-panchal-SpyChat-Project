@@ -41,10 +41,10 @@ def select_friend():
           
 
       #Asking the user to select a friend
-      friend_choice = raw_input("Choose from your friends")
-      friend_choice_position = int(friend_choice) - 1
+      friend_choice = int(raw_input("Choose from your friends: "))
+      friend_choice -= 1
 
-      return friend_choice_position
+      return friend_choice
 
 def send_message():
       print "Choose the friend to whom you want to send the message"
@@ -107,3 +107,23 @@ def save_friends():
         is_online = friends[i].is_online
         writer.writerow([name,salutation,age,rating,is_online])
   write_object.close()
+
+
+def read_chat_history():
+  read_for = select_friend()
+  print '\n'
+  #navigating in all chats of a particular friend
+  for chat in friends[read_for].chats:
+    #checking if the chat message was sent by me
+    if chat.sent_by_me:
+      #assigning the time, time of type 1 April 2018, Sun 8:01
+      time = chat.time.strftime("%d %B %Y, %a %H:%M")
+      #spy = Spy(name, salutation)
+      message = chat.message
+      #printing the message with time details
+      print '[%s]  %s' % (time, message)
+    else:
+      #assigning the time, time of type 1 April 2018, Sun 8:01
+      time = chat.time.strftime("%d %B %Y, %a %H:%M")
+      #spy = friends[read_for]
+      print '[%s] %s' % (time, message)
