@@ -39,7 +39,7 @@ print "We have successfully created your account"
 def start_chat():
     show_menu = True
     while show_menu == True:
-        menu_choice = raw_input("1. Add a status update\n2. Add Friend\n3. Send message to a friend\n4. Read secret messages of a friend\n5. Read Chats from a user\n6. Exit Application")
+        menu_choice = raw_input("1. Add a status update\n2. Add Friend\n3. Send message to a friend\n4. Read secret messages of a friend\n5. Read chat history of a friend\n6. Exit Application")
         if menu_choice == '1':
             #update the status
             print "\nYou have chosen to add a status"
@@ -64,6 +64,8 @@ def start_chat():
 
 spy.current_status_message = spy_status.load_status()
 spy_friend.load_friend()
+#spy_friend.load_chats()
 start_chat()
 spy_status.save_status()
 spy_friend.save_friends()
+#spy_friend.save_chats()

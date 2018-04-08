@@ -5,6 +5,9 @@ from spy_details import Spy, ChatMessage
 import csv
 
 
+# SPECIALMSG = ['SOS','HELP','SAVE ME','HELP ME','SAVE OUR SOUL','FACE OFF','COVER BLOWN']
+
+
 friends = []
 
 def add_friend():
@@ -56,8 +59,6 @@ def send_message():
       Steganography.encode(original_image, output_path, text)
 
       new_chat = ChatMessage(text, True)
-
-
       friends[friend_choice].chats.append(new_chat)
       print "Your secret message has been sent to %s" %friends[friend_choice].name
 
@@ -79,8 +80,11 @@ def read_message():
 
         friends[sender].chats.append(new_chat)
         print "Your secret message has beem saved\n" 
-        print "Your message is '%s'" %secret_text
-    
+        print "Your message is '%s'" %secret_text 
+
+        #generate spy alert when special msg is encountered
+        #if secret_text.upper() in SPECIALMSG:
+        #  print "SPY ALERT! SPY ALERT! SPECIAL MESSAGE IS GENERATED: "%SPECIALMSG
 
 def load_friend():
   read_object = open("spy_friends.csv", 'r')
@@ -108,6 +112,27 @@ def save_friends():
         writer.writerow([name,salutation,age,rating,is_online])
   write_object.close()
 
+# def load_chats():
+#     read_object = open("chats.csv", 'r')
+#     reader = csv.reader(read_object)
+#     for row in reader:
+#                   name = row[0]
+#         #time = ChatMessage.time.strftime("%d %B %Y, %a %H:%M")
+#                   message = ChatMessage(row[1], row[2])
+#                   for i in range(len(friends)):
+#                           if friends[i].name == name:
+#                                   friends[i].chats.append(message)
+#     read_object.close()
+        
+
+# def save_chats():
+#   write_object = open("chats.csv", 'w')
+#   writer = csv.writer(write_object)
+#   for i in range(len(friends)):
+#     for j in range(len(friends[i].chats)):
+#             writer.writerow([friends[i].name, friends[i].chats[j].message, friends[i].chats[j].sent_by_me])
+
+#   write_object.close()
 
 def read_chat_history():
   read_for = select_friend()
@@ -126,4 +151,4 @@ def read_chat_history():
       #assigning the time, time of type 1 April 2018, Sun 8:01
       time = chat.time.strftime("%d %B %Y, %a %H:%M")
       #spy = friends[read_for]
-      print '[%s] %s' % (time, message)
+      print '[%s] %s' % (message, time)

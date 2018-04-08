@@ -20,6 +20,7 @@ def add_status(current_status_message):
     update_choice = raw_input("Do you want to select from older status(y/n)?: ")
     if update_choice.upper() == 'N':
         new_status_message = raw_input("Enter new status message: ")
+        print "your new status is: ", new_status_message
 
         if len(new_status_message) > 0:
             updated_status_message = new_status_message
@@ -31,9 +32,10 @@ def add_status(current_status_message):
 
         message_selection = int(raw_input("\n Choose from the older messages "))
         if len(STATUS_MESSAGE) >= message_selection:
-            updated_status_message = STATUS_MESSAGE[message_selection-1] 
+            updated_status_message = STATUS_MESSAGE[message_selection-1]
+            print "Your current status is: ", updated_status_message 
 
-            return updated_status_message
+    return updated_status_message
 
 def load_status():
     read_object = open("spy_status.csv", 'r')
@@ -44,7 +46,8 @@ def load_status():
     if len(STATUS_MESSAGE) > 0:
             return STATUS_MESSAGE[-1]
     else:
-            return None            
+            return None 
+    read_object.close()           
 
 def save_status():
     write_object = open("spy_status.csv", 'w')
