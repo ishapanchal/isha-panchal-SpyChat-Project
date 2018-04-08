@@ -2,6 +2,7 @@ import sys
 import spy_status
 import spy_friend
 import csv
+from termcolor import colored
 
 #Import the default spy object
 from spy_details import Spy
@@ -33,7 +34,7 @@ else: #taking input from the user
         spy = Spy(name, salutation, age, rating)
 
 print "\nHello %s %s " %(spy.salutation, spy.name)
-print "We have successfully created your account"  
+print colored("We have successfully created your account",'red','on_green')  
 
 
 def start_chat():
